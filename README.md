@@ -100,7 +100,13 @@ SQL query.
 - **Permissions** — read-only SQLite queries against the system and user
   `TCC.db`. Apple's public permission APIs (`AVCaptureDevice.authorizationStatus`,
   `AXIsProcessTrusted`, …) only report the *calling* app's own state, so the
-  TCC database is the only way to see other apps' permissions.
+  TCC database is the only way to see other apps' permissions. Rows are
+  matched by each app's **declared bundle identifier** (falling back to the
+  executable path inside the app's bundle for services that record one).
+  This means an app whose Info.plist claims another app's bundle ID could,
+  in edge cases, be shown that app's statuses — a display limitation of how
+  TCC records identities, not a data leak. Cross-check anything sensitive in
+  System Settings itself.
 - **Location** — stored in locationd's registry
   (`/var/db/locationd/clients.plist`), not TCC. It's world-readable, so location
   statuses work even without Full Disk Access.

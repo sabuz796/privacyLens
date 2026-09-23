@@ -22,7 +22,7 @@ struct PermissionDetailView: View {
             } header: {
                 Text("Privacy Permissions")
             } footer: {
-                Text("Click a permission to open its pane in System Settings → Privacy & Security.")
+                Text("Click a permission to open its pane in System Settings → Privacy & Security. Statuses are matched by each app's declared bundle identifier.")
             }
         }
         .listStyle(.inset(alternatesRowBackgrounds: true))
