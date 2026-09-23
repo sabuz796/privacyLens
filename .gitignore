@@ -1,0 +1,21 @@
+# macOS noise
+.DS_Store
+
+# Build outputs
+build/
+build.noindex/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcuserstate
+*.zip
+
+# ⚠️ Code signing private material — NEVER commit these
+*.pem
+*.p12
+*.cer
+*.mobileprovision
+
+# Agent skills (local per AGENTS.md; reinstall: see AGENTS.md)
+.agents/
+.claude/
+*.xcodeproj/project.xcworkspace/xcuserdata/
