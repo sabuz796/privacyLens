@@ -6,6 +6,8 @@ System Settings → Privacy & Security pane.
 
 ![platform](https://img.shields.io/badge/platform-macOS%2014%2B-black) ![license](https://img.shields.io/badge/license-MIT-green)
 
+![PrivacyLens showing every app's privacy permissions in one searchable list](images/privacyLens%20app.png)
+
 ## Everything under your nose 👀
 
 Every app you install quietly asks for access — your camera, microphone, screen,
