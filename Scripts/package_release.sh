@@ -13,8 +13,14 @@ DMG="$APP_NAME.dmg"
 STAGE="build.noindex/dmg-staging"
 
 echo "==> Building ($CONFIG)…"
+# CI (GitHub-hosted runners, CI=true) has no "PrivacyLens Dev" certificate —
+# fall back to ad-hoc signing there; local builds keep the project's identity.
+SIGN_ARGS=""
+if [ -n "${CI:-}" ]; then
+    SIGN_ARGS="CODE_SIGN_IDENTITY=-"
+fi
 if ! xcodebuild -project "$APP_NAME.xcodeproj" -target "$APP_NAME" \
-      -configuration "$CONFIG" build | grep -q "BUILD SUCCEEDED"; then
+      -configuration "$CONFIG" build $SIGN_ARGS | grep -q "BUILD SUCCEEDED"; then
     echo "❌ Build failed — run again without piping to see errors."
     exit 1
 fi
