@@ -89,8 +89,8 @@ enum TCCDatabase {
         guard seconds > 0 else { return nil }
         let date = seconds >= 1_000_000_000
             ? Date(timeIntervalSince1970: TimeInterval(seconds))
-            : Date(timeIntervalSinceReferenceDate: TimeInterval(seconds) + 978307200)
-        return date < Date() && date > Date(timeIntervalSince1970: 978307200) ? date : nil
+            : Date(timeIntervalSinceReferenceDate: TimeInterval(seconds))
+        return date < Date() && date > Date(timeIntervalSinceReferenceDate: 0) ? date : nil
     }
 
     private static func readDatabase(at path: String) -> [TCCRecord] {

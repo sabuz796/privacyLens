@@ -17,11 +17,11 @@ enum PermissionResolver {
         }
     }
 
-    static func resolve(forBundleID bundleID: String,
+    static func resolve(for app: InstalledApp,
                         records: [TCCRecord],
                         locationClients: [String: PermissionStatus]) -> ResolvedPermissions {
         var resolved = ResolvedPermissions()
-        let mine = Dictionary(grouping: records.filter { $0.client == bundleID }, by: \.service)
+        let mine = Dictionary(grouping: records.filter { isClient($0.client, of: app) }, by: \.service)
 
         for service in PermissionService.allCases {
             if let rows = mine[service.tccServiceKey] {
@@ -37,12 +37,22 @@ enum PermissionResolver {
                 resolved.timestamps[service] = rows
                     .compactMap { TCCDatabase.date(fromLastModified: $0.lastModified) }
                     .max()
-            } else if service == .location, let locationStatus = locationClients[bundleID] {
+            } else if service == .location, let locationStatus = locationClients[app.bundleID] {
                 resolved.statuses[service] = locationStatus
             } else {
                 resolved.statuses[service] = .notRequested
             }
         }
         return resolved
+    }
+
+    /// A TCC row belongs to this app if the client is its bundle ID — or, for
+    /// services that record an executable/bundle path instead, if it lives
+    /// inside this app's bundle. The path form also stops an impostor app
+    /// from inheriting permissions recorded under another app's bundle path.
+    /// (A bundle-ID client string can still be claimed by an impostor's
+    /// Info.plist — inherent TCC limitation, documented in the README.)
+    static func isClient(_ client: String, of app: InstalledApp) -> Bool {
+        client == app.bundleID || client.hasPrefix(app.path.path + "/")
     }
 }

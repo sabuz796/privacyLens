@@ -89,7 +89,7 @@ final class AppListViewModel: ObservableObject {
             let permissions: ResolvedPermissions
             if hasFullDiskAccess {
                 permissions = PermissionResolver.resolve(
-                    forBundleID: app.bundleID,
+                    for: app,
                     records: records,
                     locationClients: locationClients
                 )
