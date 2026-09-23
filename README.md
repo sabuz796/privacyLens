@@ -118,6 +118,25 @@ the same name or change `CODE_SIGN_IDENTITY` in the project settings. Ad-hoc
 signing (`CODE_SIGN_IDENTITY = -`) also works, but macOS then forgets
 Full Disk Access grants after every rebuild.
 
+## Contributing
+
+PRs welcome! The loop:
+
+```bash
+git clone <repo-url> && cd privacyLens
+swift test                                    # unit tests (pure logic, ~1 s)
+./Scripts/install_dev.sh                      # build, install, launch
+# …edit…
+./Scripts/install_dev.sh                      # re-run to rebuild + relaunch
+```
+
+- `swift test` covers the permission-matching and timestamp logic and needs
+  no signing — run it before every commit.
+- First dev install: create a self-signed code-signing certificate named
+  **`PrivacyLens Dev`** (see *Building & signing* below) so macOS remembers
+  Full Disk Access grants between rebuilds.
+- Please include your macOS version and the affected service in bug reports.
+
 ## Project layout
 
 ```
