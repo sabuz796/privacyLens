@@ -30,7 +30,7 @@ final class AppListViewModel: ObservableObject {
             Task { await self?.refresh() }
         }
         startTCCPolling()
-        Task { await refresh() }
+        Task { await refresh(announceChange: false) }
     }
 
     deinit {
@@ -63,14 +63,17 @@ final class AppListViewModel: ObservableObject {
         Task { await refresh(announceChange: true) }
     }
 
+    /// Manual refresh (button, ⌘R): always acknowledged with a toast, so the
+    /// click feels answered even when nothing changed.
     func refresh() async {
-        await refresh(announceChange: false)
+        await refresh(announceChange: true)
     }
 
     private func refresh(announceChange: Bool) async {
         guard !isLoading else { return }
         isLoading = true
-        defer { isLoading = false }
+        let clock = ContinuousClock()
+        let start = clock.now
 
         // Heavy work off the main thread: directory scans + SQLite reads.
         let snapshot = await Task.detached(priority: .userInitiated) { () -> ([InstalledApp], [TCCRecord], [String: PermissionStatus]) in
@@ -101,7 +104,7 @@ final class AppListViewModel: ObservableObject {
         }
 
         if announceChange {
-            changeAnnouncement = "Permissions changed — list updated"
+            changeAnnouncement = "List updated"
             toastDismissTask?.cancel()
             toastDismissTask = Task { [weak self] in
                 try? await Task.sleep(nanoseconds: 3_000_000_000)
@@ -109,6 +112,14 @@ final class AppListViewModel: ObservableObject {
                 self?.changeAnnouncement = nil
             }
         }
+
+        // Keep the spinner alive at least ~350 ms so a manual refresh is
+        // always visibly acknowledged, even on an instant scan.
+        let elapsed = clock.now - start
+        if elapsed < .milliseconds(350) {
+            try? await Task.sleep(for: .milliseconds(350) - elapsed)
+        }
+        isLoading = false
 
         startFDAPollingIfNeeded()
     }

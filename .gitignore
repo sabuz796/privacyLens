@@ -19,3 +19,4 @@ DerivedData/
 .agents/
 .claude/
 *.xcodeproj/project.xcworkspace/xcuserdata/
+.build/
