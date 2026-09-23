@@ -64,11 +64,13 @@ open build.noindex/Release/PrivacyLens.app
 
 **Option B — download the release:**
 
-1. Grab `PrivacyLens.zip` from [Releases](../../releases) and unzip
-2. Right-click `PrivacyLens.app` → **Open** (macOS warns because the app is
-   self-signed, not notarized — expected for open-source apps without an
-   Apple Developer account). On newer macOS: if double-click is blocked, go to
-   **System Settings → Privacy & Security** and click **Open Anyway**
+1. Download `PrivacyLens.dmg` from [Releases](../../releases) and open it
+2. Drag **PrivacyLens** onto the **Applications** shortcut
+3. Right-click `PrivacyLens.app` in Applications → **Open** (macOS warns because
+   the app is self-signed, not notarized — expected for open-source apps
+   without an Apple Developer account). On newer macOS: if double-click is
+   blocked, go to **System Settings → Privacy & Security** and click
+   **Open Anyway**
 
 ## First launch: Full Disk Access
 

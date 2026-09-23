@@ -8,6 +8,7 @@ DerivedData/
 *.xcodeproj/xcuserdata/
 *.xcuserstate
 *.zip
+*.dmg
 
 # ⚠️ Code signing private material — NEVER commit these
 *.pem
