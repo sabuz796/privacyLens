@@ -72,6 +72,16 @@ open build.noindex/Release/PrivacyLens.app
    blocked, go to **System Settings → Privacy & Security** and click
    **Open Anyway**
 
+**Terminal alternative:** if you prefer the command line, clear the
+quarantine flag yourself instead of the right-click dance:
+
+```bash
+xattr -cr /Applications/PrivacyLens.app
+```
+
+This tells macOS you trust this specific app — only run it on the app
+you just downloaded from this repository's Releases page.
+
 ## First launch: Full Disk Access
 
 Apple stores every app's permissions in its TCC database (`TCC.db`), which is
