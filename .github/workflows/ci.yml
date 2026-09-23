@@ -4,13 +4,13 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Unit tests (pure logic — no signing needed)
         run: swift test
       - name: Build app (ad-hoc; FDA grant persistence is irrelevant on CI)
         run: |
           xcodebuild -project PrivacyLens.xcodeproj -target PrivacyLens \
             -configuration Release build CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" \
-            | tee build.log | grep -q "BUILD SUCCEEDED" || { tail -40 build.log; exit 1; }
+            2>&1 | tee build.log | grep -q "BUILD SUCCEEDED" || { tail -40 build.log; exit 1; }
