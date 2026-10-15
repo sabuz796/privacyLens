@@ -6,7 +6,7 @@ extension Notification.Name {
 
 /// Owns the app list, permission statuses, and the Full Disk Access state.
 ///
-/// RAM/CPU budget: background monitoring is one `stat` per 15 s; a full
+/// RAM/CPU budget: background monitoring is one `stat` per 2 s; a full
 /// rescan (directory walk + SQLite reads, off the main thread) happens only
 /// when the TCC database actually changed on disk or the user asks for it.
 @MainActor
@@ -124,11 +124,11 @@ final class AppListViewModel: ObservableObject {
         startFDAPollingIfNeeded()
     }
 
-    /// Live monitoring: one `stat` every 15 s — negligible cost. The moment
+    /// Live monitoring: one `stat` every 2 s — negligible cost. The moment
     /// TCC.db's modification date moves, the list rescans and a toast appears.
     private func startTCCPolling() {
         guard tccPollTimer == nil else { return }
-        let timer = Timer(timeInterval: 15, repeats: true) { [weak self] _ in
+        let timer = Timer(timeInterval: 2, repeats: true) { [weak self] _ in
             Task { @MainActor [weak self] in
                 self?.refreshIfTCCChanged()
             }

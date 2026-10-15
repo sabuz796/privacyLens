@@ -109,7 +109,7 @@ SQL query.
 - ⚡ **Filter chips** — "show me every app with Camera access"
 - 🕐 **Timestamps** — when each permission was last changed
 - ⚠️ **Risk badges** — flags dangerous combos (Accessibility + Screen Recording)
-- 📡 **Live monitoring** — detects permission changes within 15 s (one file
+- 📡 **Live monitoring** — detects permission changes within ~2 s (one file
   `stat`; rescans only when the database actually changed)
 - 🖱️ **Right-click** → Reveal in Finder / Open App
 - 🔗 **Deep links** — click any permission to open its exact System Settings pane
