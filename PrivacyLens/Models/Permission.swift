@@ -105,6 +105,12 @@ enum PermissionService: String, CaseIterable, Identifiable, Hashable {
             return "Privacy_FilesAndFolders"
         }
     }
+
+    /// Deep link into System Settings → Privacy & Security via
+    /// `x-apple.systempreferences:` URLs (the official URL scheme Apple exposes).
+    var settingsURL: URL {
+        URL(string: "x-apple.systempreferences:com.apple.preference.security?\(settingsAnchor)")!
+    }
 }
 
 /// The current permission state for one app.

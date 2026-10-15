@@ -54,33 +54,40 @@ Your privacy audit tool should never be a privacy risk itself.
 
 ## Install
 
-**Option A — build from source (most trusted, ~2 min):**
+**Option A — Homebrew (easiest, recommended):**
+
+Open **Terminal** (find it with Spotlight: press `⌘ Space`, type `Terminal`)
+and paste these two commands (press `Enter` after each):
 
 ```bash
-git clone <repo-url> && cd privacyLens
+brew tap sabuz796/privacyLens
+brew install --cask privacylens
+```
+
+Don't have Homebrew yet? Install it first from [brew.sh](https://brew.sh),
+then come back and run the two commands above. To update later:
+`brew upgrade --cask privacylens`.
+
+**Option B — download the app directly:**
+
+1. Go to [Releases](../../releases) and download `PrivacyLens.dmg`
+   (under the newest version number)
+2. Double-click the downloaded file — a window opens showing **PrivacyLens**
+   next to an **Applications** shortcut
+3. Drag **PrivacyLens** onto **Applications** — that's the whole install
+4. Open **Applications** in Finder and double-click **PrivacyLens**.
+   macOS may warn the app is from an "unidentified developer" — that's
+   expected for open-source apps without a paid Apple Developer account.
+   Right-click `PrivacyLens.app` → **Open** → **Open** to tell macOS you
+   trust it (needed only once)
+
+**Option C — build from source (most trusted, ~2 min):**
+
+```bash
+git clone https://github.com/sabuz796/privacyLens.git && cd privacyLens
 xcodebuild -project PrivacyLens.xcodeproj -target PrivacyLens -configuration Release build
 open build.noindex/Release/PrivacyLens.app
 ```
-
-**Option B — download the release:**
-
-1. Download `PrivacyLens.dmg` from [Releases](../../releases) and open it
-2. Drag **PrivacyLens** onto the **Applications** shortcut
-3. Right-click `PrivacyLens.app` in Applications → **Open** (macOS warns because
-   the app is self-signed, not notarized — expected for open-source apps
-   without an Apple Developer account). On newer macOS: if double-click is
-   blocked, go to **System Settings → Privacy & Security** and click
-   **Open Anyway**
-
-**Terminal alternative:** if you prefer the command line, clear the
-quarantine flag yourself instead of the right-click dance:
-
-```bash
-xattr -cr /Applications/PrivacyLens.app
-```
-
-This tells macOS you trust this specific app — only run it on the app
-you just downloaded from this repository's Releases page.
 
 ## First launch: Full Disk Access
 
@@ -143,7 +150,7 @@ Full Disk Access grants after every rebuild.
 PRs welcome! The loop:
 
 ```bash
-git clone <repo-url> && cd privacyLens
+git clone https://github.com/sabuz796/privacyLens.git && cd privacyLens
 swift test                                    # unit tests (pure logic, ~1 s)
 ./Scripts/install_dev.sh                      # build, install, launch
 # …edit…
@@ -163,7 +170,7 @@ swift test                                    # unit tests (pure logic, ~1 s)
 PrivacyLens/
 ├── PrivacyLensApp.swift      entry point, menu commands, debug self-check
 ├── Models/                   InstalledApp / PermissionService / PermissionStatus
-├── Helpers/                  TCCDatabase, PermissionResolver, AppScanner, SystemSettingsLink
+├── Helpers/                  TCCDatabase, PermissionResolver, AppScanner
 ├── ViewModels/               AppListViewModel (search, filters, FDA polling, change monitor)
 └── Views/                    ContentView, AppRowView, PermissionDetailView, FDARequiredView
 ```

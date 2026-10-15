@@ -76,7 +76,10 @@ struct ContentView: View {
                 )
             }
         }
-        .toolbar { ToolbarItem(placement: .primaryAction) { refreshButton } }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) { reportButton }
+            ToolbarItem(placement: .primaryAction) { refreshButton }
+        }
         .overlay(alignment: .top) {
             if let announcement = viewModel.changeAnnouncement {
                 ToastView(text: announcement)
@@ -99,6 +102,15 @@ struct ContentView: View {
         }
         .disabled(viewModel.isLoading)
         .help("Refresh permissions (⌘R)")
+    }
+
+    private var reportButton: some View {
+        Button {
+            NSWorkspace.shared.open(URL(string: "https://github.com/sabuz796/privacyLens/issues/new")!)
+        } label: {
+            Image(systemName: "exclamationmark.bubble")
+        }
+        .help("Report an issue on GitHub")
     }
 }
 

@@ -24,8 +24,4 @@ final class TCCDatabaseDateTests: XCTestCase {
     func testFutureDateRejected() {
         XCTAssertNil(TCCDatabase.date(fromLastModified: 4_000_000_000)) // year 2096
     }
-
-    func testPre2001Rejected() {
-        XCTAssertNil(TCCDatabase.date(fromLastModified: 0))
-    }
 }

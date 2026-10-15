@@ -21,7 +21,7 @@ struct FDARequiredView: View {
             }
 
             Button {
-                SystemSettingsLink.openPrivacyPane(for: .fullDiskAccess)
+                NSWorkspace.shared.open(PermissionService.fullDiskAccess.settingsURL)
             } label: {
                 Label("Open Full Disk Access Settings", systemImage: "arrow.up.right.square")
             }

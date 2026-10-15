@@ -80,7 +80,7 @@ struct PermissionRowView: View {
 
     var body: some View {
         Button {
-            SystemSettingsLink.openPrivacyPane(for: service)
+            NSWorkspace.shared.open(service.settingsURL)
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: service.symbolName)
