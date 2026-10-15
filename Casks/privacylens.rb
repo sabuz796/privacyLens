@@ -1,6 +1,6 @@
 cask "privacylens" do
-  version "1.0.2"
-  sha256 "44514874da08c7daed419b14f0a63824b85ec19f685b8fa9b7458f88cac4f0a5"
+  version "1.0.0"
+  sha256 "bdbc13444a075da7538fe352f28fc5dc2ddee0091ae9b5d8e852f9026414dec6"
 
   url "https://github.com/sabuz796/privacyLens/releases/download/v#{version}/PrivacyLens.dmg"
   name "PrivacyLens"
