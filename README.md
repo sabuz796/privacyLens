@@ -6,7 +6,7 @@ System Settings → Privacy & Security pane.
 
 ![platform](https://img.shields.io/badge/platform-macOS%2014%2B-black) ![license](https://img.shields.io/badge/license-MIT-green)
 
-![PrivacyLens showing every app's privacy permissions in one searchable list](images/privacyLens%20app.png)
+![PrivacyLens showing every app's privacy permissions in one searchable list](images/privacyLens%20apppng.png)
 
 ## Everything under your nose 👀
 
